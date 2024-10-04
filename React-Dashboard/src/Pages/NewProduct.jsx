@@ -53,7 +53,7 @@ const NewProduct = () => {
                 alt=""
               />
             </div>
-            <button className="p-1 rounded-md bg-violet-600 text-white">
+            <button className="p-1 rounded-md bg-teal-600 text-white">
               به روز رسانی
             </button>
           </div>

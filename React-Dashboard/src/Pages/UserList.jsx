@@ -49,8 +49,14 @@ const UserList = () => {
   }
   
     return (
-        <div className='flex-4 mx-[50px] h-[85vh] mb-5 mt-2' >
-             <DataGrid className='w-[95%]' rows={rows} disableSelectionOnClick columns={columns} checkboxSelection />
+        <div className='flex-6 h-[80vh] mx-10 mt-10 ' >
+             <DataGrid className='' 
+             initialState={{
+              pagination: {
+                paginationModel: { pageSize: 8, page: 0 },
+              },
+            }}
+             rows={rows} disableSelectionOnClick columns={columns} checkboxSelection />
         </div>
     );
 };

@@ -30,7 +30,7 @@ const WidgetSm = () => {
                 <span className="">{user.email}  </span>
             </div>
             <button
-            className="flex w-[35%] items-center border-none rounded-lg p-2 bg-violet-400/50 text-gray-800 cursor-pointer">
+            className="flex w-[35%] items-center border-none rounded-lg p-2 bg-teal-400/50 text-gray-800 cursor-pointer">
                 <Visibility className="text-lg ml-1"/>
                 مشاهده
             </button>

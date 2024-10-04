@@ -11,9 +11,9 @@ const Product = () => {
   const productId = location.pathname.split('/')[2]
   const product = useSelector(state=> state.product.products.find(product => product._id == productId))
   return (
-    <div className="flex-4 p-5 items-start">
+    <div className="flex-6 p-5 items-start">
       <div className=" flex justify-between items-center">
-        <h1 className="">ویرایش محصولات</h1>
+        <h1 className=""> </h1>
         <Link to={"/newProduct"}>
           <button className="w-20 p-1 bg-teal-500 rounded text-white ">
             ایجاد
@@ -98,7 +98,7 @@ const Product = () => {
                 alt=""
               />
             </div>
-            <button className="p-1 rounded-md bg-violet-600 text-white">
+            <button className="p-1 rounded-md bg-teal-600 text-white">
               به روز رسانی
             </button>
           </div>

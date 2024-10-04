@@ -3,23 +3,49 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Yekan';
-    src: url('./assets/fonts/BYekan.eot');
-    src: url('./assets/fonts/BYekan.eot') format('embedded-opentype'),
-    url('./assets/fonts/BYekan.woff') format('woff'),
-    url('./assets/fonts/BYekan.ttf') format('truetype');
+    font-family: 'ShabnamLight';
+    src: url('./assets/fonts/Shabnam-Light.eot');
+    src: url('./assets/fonts/Shabnam-Light.eot') format('embedded-opentype'),
+    url('./assets/fonts/Shabnam-Light.woff') format('woff'),
+    url('./assets/fonts/Shabnam-Light.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'ShabnamBold';
+    src: url('./assets/fonts/Shabnam-Bold.eot');
+    src: url('./assets/fonts/Shabnam-Bold.eot') format('embedded-opentype'),
+    url('./assets/fonts/Shabnam-Bold.woff') format('woff'),
+    url('./assets/fonts/Shabnam-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'ShabnamMid';
+    src: url('./assets/fonts/Shabnam-Medium.eot');
+    src: url('./assets/fonts/Shabnam-Medium.eot') format('embedded-opentype'),
+    url('./assets/fonts/Shabnam-Medium.woff') format('woff'),
+    url('./assets/fonts/Shabnam-Medium.ttf') format('truetype');
 }
 body{
     direction: rtl;
-    font-family: 'Yekan' !important;
+    font-family: 'ShabnamLight' !important;
+}
+.lightShab{
+    font-family: 'ShabnamLight' !important;
+}
+.boldShab{
+    font-family: 'ShabnamBold' !important;
+}
+.midShab{
+    font-family: 'ShabnamMid' !important;
 }
 .containerr{
     display: flex;
     /* margin-top: 10px; */
 }
 .other{
-    flex: 4;
+    flex: 5;
     background-color: bisque;
+}
+.flex-6{
+    flex: 6;
 }
 .flex-5{
     flex: 5;

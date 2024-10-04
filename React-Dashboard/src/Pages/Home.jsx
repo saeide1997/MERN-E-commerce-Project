@@ -41,7 +41,7 @@ const Home = () => {
     getStats()
   }, [months])
   return (
-    <div className="flex-5">
+    <div className="flex-6 mt-10">
       <FeaturedInfo />
       <Chart
         data={userStats}

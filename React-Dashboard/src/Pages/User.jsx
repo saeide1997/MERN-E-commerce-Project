@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const User = () => {
   return (
-    <div className="flex-4 p-5 items-start">
+    <div className="flex-6 p-5 items-start">
       <div className=" flex justify-between items-center">
-        <h1 className="">ویرایش کاربر</h1>
+        <h1 className=""> </h1>
         <Link to={'/newUser'}>
         <button className="w-20 p-1 bg-teal-500 rounded text-white ">
           ایجاد
@@ -21,12 +21,12 @@ const User = () => {
               alt=""
             />
             <div className="flex flex-col justify-between">
-              <span className="">سعیده تاجمهر</span>
+              <span className="boldShab">سعیده تاجمهر</span>
               <span className="">برنامه نویس</span>
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="text-base text-gray-600 my-5">اطلاعات حساب</span>
+            <span className="text-base boldShab text-gray-600 my-5">اطلاعات حساب</span>
             <div className="flex items-center mb-5 text-gray-800" >
               <PermIdentity className="text-base"/>
               <span className="mr-1">savide</span>
@@ -35,7 +35,7 @@ const User = () => {
               <CalendarToday className="text-base"/>
               <span className="mr-1">1376.04.25</span>
             </div>
-            <span className="text-base text-gray-600 my-5">اطلاعات کاربر</span>
+            <span className="text-base boldShab text-gray-600 my-5">اطلاعات کاربر</span>
             <div className="flex items-center mb-5 text-gray-800">
               <PhoneAndroid className="text-base" />
               <span className="mr-1">09144839748</span>
@@ -79,7 +79,7 @@ const User = () => {
                         <input className="hidden" type="file" name="" id="img" />
                         <img className="w-24 h-24" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="" />
                     </div>
-                    <button className="p-1 rounded-md bg-violet-600 text-white">به روز رسانی</button>
+                    <button className="p-1 rounded-md bg-teal-600 text-white">به روز رسانی</button>
                 </div>
             </form>
             </div>
