@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Yekan';
+    src: url('./assets/fonts/BYekan.eot');
+    src: url('./assets/fonts/BYekan.eot') format('embedded-opentype'),
+    url('./assets/fonts/BYekan.woff') format('woff'),
+    url('./assets/fonts/BYekan.ttf') format('truetype');
+}
+body{
+    direction: rtl;
+    font-family: 'Yekan' !important;
+}

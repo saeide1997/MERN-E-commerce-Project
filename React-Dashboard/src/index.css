@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Yekan';
+    src: url('./assets/fonts/BYekan.eot');
+    src: url('./assets/fonts/BYekan.eot') format('embedded-opentype'),
+    url('./assets/fonts/BYekan.woff') format('woff'),
+    url('./assets/fonts/BYekan.ttf') format('truetype');
+}
+body{
+    direction: rtl;
+    font-family: 'Yekan' !important;
+}
+.containerr{
+    display: flex;
+    /* margin-top: 10px; */
+}
+.other{
+    flex: 4;
+    background-color: bisque;
+}
+.flex-5{
+    flex: 5;
+}
+.flex-4{
+    flex: 4;
+}
+.flex-3{
+    flex: 3;
+}
+.flex-2{
+    flex: 2;
+}
+.flex-1{
+    flex: 1;
+}
+.shadow{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.MuiDataGrid-cell{
+    display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 11px;
+}
+.MuiIconButton-root{
+    rotate: 180deg;
+}

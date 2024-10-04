@@ -1,0 +1,63 @@
+import React, { useEffect, useState } from 'react';
+import{ useDispatch, useSelector } from 'react-redux';
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { Link } from 'react-router-dom';
+import { DeleteOutline } from '@mui/icons-material';
+import { deleteProduct, getProduct } from '../redux/apiCalls';
+
+const ProductList = () => {
+  const dispatch = useDispatch()
+  const products = useSelector((state)=>state.product.products)
+
+  useEffect(()=>{
+    getProduct(dispatch)
+  },[dispatch])
+
+    const columns = [
+        { field: '_id', headerName: 'ID', width: 50 },
+        { field: 'title', headerName: 'نام ', width: 250,
+          renderCell: (params)=>{
+            return(
+              <div className='flex justify-center items-center'>
+                <img className='w-10 h-10 ml-2' src={params.row.img} alt="userImage" />
+                {params.row.title}
+              </div>
+            )
+          }
+         },
+        { field: 'inStock', headerName: 'موجودی', width: 150 },
+        { field: 'price', headerName: 'قیمت', width: 150 },
+        // { field: 'transaction', headerName: 'تراکنش', width: 150 },
+        { field: 'action', headerName: 'عملیات', width: 150, renderCell:(params)=>{
+          return(
+            <>
+            <Link to={"/product/"+params.row._id}>
+              <button className='ml-2 bg-green-600 h-7 w-11 flex justify-center text-white rounded-md items-center'>ویرایش</button>
+            </Link>
+            <DeleteOutline className='text-red-700' onClick={()=>handleDelete(params.row._id)}/>
+            </>
+          )
+        }
+       },
+      ];
+ 
+  const handleDelete=(id)=>{
+    console.log(id);
+    deleteProduct(id,dispatch)
+    
+  }
+
+    return (
+        <div className='flex-4 mx-[50px] h-[85vh] mb-5 mt-2' >
+             <DataGrid className='w-[95%]'
+             initialState={{
+              pagination: {
+                paginationModel: { pageSize: 8, page: 0 },
+              },
+            }}
+             rows={products} disableRowSelectionOnClick getRowId={(row)=> row._id} columns={columns} checkboxSelection />
+        </div>
+    );
+};
+
+export default ProductList;
