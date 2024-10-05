@@ -26,7 +26,7 @@ const WidgetSm = () => {
         <li className="flex items-center justify-center my-5">
             <img className="w-10 h-10 rounded-full object-cover " src={user.img || "https://cdn-icons-png.flaticon.com/512/219/219969.png"} alt="" />
             <div className="flex flex-col mx-5">
-                <span className="">{user.username} </span>
+                <span className="">{user.userName} </span>
                 <span className="">{user.email}  </span>
             </div>
             <button

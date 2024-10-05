@@ -7,15 +7,15 @@ import Swal from 'sweetalert2'
 
 const LoginPage = () => {
 
-    const [username, setUsername] = useState('')
+    const [userName, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const handleClick = async (e)=>{
         e.preventDefault() //Prevent to Refreshing the Page
-        await login(dispatch, {username, password})
-        const user = dispatch(loginStart({username, password}));
+        await login(dispatch, {userName, password})
+        const user = dispatch(loginStart({userName, password}));
         if (user.payload != 'undefined') {
             console.log(user.payload);
             Swal.fire({

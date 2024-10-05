@@ -1,5 +1,8 @@
 import axios from "axios"
-import { loginFailure, loginStart, loginSuccess } from "./userRedux"
+import { loginFailure, loginStart, loginSuccess, 
+    getUserStart, getUserSuccess, getUserFailure,
+    AddUserStart, AddUserSuccess, AddUserFailure  
+ } from "./userRedux"
 import {getProductFailure,getProductStart,getProductSuccess,
      deleteProductFailure,deleteProductStart,deleteProductSuccess,
      addProductStart, addProductSuccess, addProductFailure,
@@ -18,6 +21,33 @@ export const login = async (dispatch, user)=>{
 
     }catch(err){
         dispatch(loginFailure())
+    }
+}
+
+export const getUser = async (dispatch)=>{
+    // console.log(dispatch(getProductStart()));
+    dispatch(getUserStart())
+    try{
+        const res = await publicRequest.get("/users/")
+        console.log('res',res.data);
+        // console.log('resd', dispatch(getUserSuccess(res.data)));
+        dispatch(getUserSuccess(res.data))
+
+    }catch(err){
+        dispatch(getUserFailure())
+    }
+}
+
+export const addUser = async (User, dispatch)=>{
+    dispatch(AddUserStart())
+    try{
+        const res = await userRequest.post(`/auth/register`,User)
+        console.log(55555,User);
+        console.log('res',res);
+        dispatch(AddUserSuccess(res.data))
+
+    }catch(err){
+        dispatch(AddUserFailure())
     }
 }
 

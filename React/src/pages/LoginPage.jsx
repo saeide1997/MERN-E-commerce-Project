@@ -6,14 +6,14 @@ import Swal from 'sweetalert2'
 
 const LoginPage = () => {
 
-    const [username, setUsername] = useState('')
+    const [userName, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const handleClick = async (e)=>{
         e.preventDefault()
-        await login(dispatch, {username, password})
+        await login(dispatch, {userName, password})
         Swal.fire({
             position: "top-end",
             icon: "success",
