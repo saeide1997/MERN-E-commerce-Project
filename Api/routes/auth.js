@@ -22,12 +22,12 @@ router.post("/register", jsonParser, async (req, res) => {
     ).toString(),
   });
   try {
-    console.log(newUser);
+    console.log(22,newUser);
     const savedUser = await newUser.save();
+    console.log(33,savedUser);
 
     res.status(201).json(savedUser);
   } catch (err) {
-    // console.log(req.body.userName);
     res.status(500).json(err);
   }
 });

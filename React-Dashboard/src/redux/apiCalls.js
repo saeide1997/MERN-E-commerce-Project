@@ -1,7 +1,8 @@
 import axios from "axios"
 import { loginFailure, loginStart, loginSuccess, 
     getUserStart, getUserSuccess, getUserFailure,
-    AddUserStart, AddUserSuccess, AddUserFailure  
+    addUserStart, addUserSuccess, addUserFailure,
+    updateUserStart, updateUserSuccess, updateUserFailure  
  } from "./userRedux"
 import {getProductFailure,getProductStart,getProductSuccess,
      deleteProductFailure,deleteProductStart,deleteProductSuccess,
@@ -11,12 +12,9 @@ import { publicRequest, userRequest } from "../requestMethods"
 import { useNavigate } from "react-router-dom";
 
 export const login = async (dispatch, user)=>{
-    // console.log(dispatch(loginStart()));
     dispatch(loginStart())
     try{
         const res = await publicRequest.post("/auth/login", user)
-        // console.log('res',res);
-        // console.log('resd', dispatch(loginSuccess(res.data)));
         dispatch(loginSuccess(res.data))
 
     }catch(err){
@@ -25,12 +23,9 @@ export const login = async (dispatch, user)=>{
 }
 
 export const getUser = async (dispatch)=>{
-    // console.log(dispatch(getProductStart()));
     dispatch(getUserStart())
     try{
         const res = await publicRequest.get("/users/")
-        console.log('res',res.data);
-        // console.log('resd', dispatch(getUserSuccess(res.data)));
         dispatch(getUserSuccess(res.data))
 
     }catch(err){
@@ -39,25 +34,21 @@ export const getUser = async (dispatch)=>{
 }
 
 export const addUser = async (User, dispatch)=>{
-    dispatch(AddUserStart())
+    dispatch(addUserStart())
     try{
-        const res = await userRequest.post(`/auth/register`,User)
-        console.log(55555,User);
-        console.log('res',res);
-        dispatch(AddUserSuccess(res.data))
+        console.log(User);
+        const res = await userRequest.post('/auth/register',User)
+        dispatch(addUserSuccess(res.data))
 
     }catch(err){
-        dispatch(AddUserFailure())
+        dispatch(addUserFailure())
     }
 }
 
 export const getProduct = async (dispatch)=>{
-    // console.log(dispatch(getProductStart()));
     dispatch(getProductStart())
     try{
         const res = await publicRequest.get("/product/products")
-        // console.log('res',res);
-        // console.log('resd', dispatch(getProductSuccess(res.data)));
         dispatch(getProductSuccess(res.data))
 
     }catch(err){
@@ -66,11 +57,8 @@ export const getProduct = async (dispatch)=>{
 }
 
 export const deleteProduct = async (id, dispatch)=>{
-    console.log(dispatch(deleteProductStart()));
     dispatch(deleteProductStart())
     try{
-        // const res = await userRequest.delete(`/product/${id}`)
-        // console.log('res',id);
         dispatch(deleteProductSuccess(id))
 
     }catch(err){
@@ -80,12 +68,10 @@ export const deleteProduct = async (id, dispatch)=>{
 
 
 export const updateProduct = async (id, product, dispatch)=>{
-    // console.log(dispatch(updateProductStart()));
     dispatch(updateProductStart())
     try{
-        // const res = await userRequest.update(`/product/${id}`)
-        // console.log('res',id);
-        dispatch(updateProductSuccess({id ,product})) //id:id product:product
+        const res = await userRequest.put(`/product/${id}`, product)
+        dispatch(updateProductSuccess(res.data)) //id:id product:product
 
     }catch(err){
         dispatch(updateProductFailure())
@@ -94,13 +80,23 @@ export const updateProduct = async (id, product, dispatch)=>{
 
 export const addProduct = async (product, dispatch)=>{
     dispatch(addProductStart())
-    console.log(2222222222222);
     try{
-        const res = await userRequest.post(`/product`,product)
-        // console.log('res',id);
+        const res = await userRequest.post(`/product/`,product)
         dispatch(addProductSuccess(res.data))
 
     }catch(err){
         dispatch(addProductFailure())
+    }
+}
+
+export const updateUser = async (id, user, dispatch)=>{
+    dispatch(updateUserStart())
+    try{
+        console.log('user',user);
+        const res = await userRequest.put(`/users/${id}`, user)
+        dispatch(updateUserSuccess(res.data)) //id:id product:product
+
+    }catch(err){
+        dispatch(updateUserFailure())
     }
 }

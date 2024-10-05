@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 const CartPage = () => {
     const cart = useSelector(state=>state.cart)
-    console.log(cart);
     return (
         <div>
             <Navbar />

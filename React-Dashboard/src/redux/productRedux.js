@@ -38,8 +38,8 @@ const productslice = createSlice({
         deleteProductFailure: (state)=>{
             state.isFetching = false
             state.error = true
-        }
-    },
+        },
+    
 
      //Update All
      updateProductStart :(state)=>{
@@ -57,7 +57,7 @@ const productslice = createSlice({
         state.error = true
     },
 
-    //Update All
+    //Add
     addProductStart :(state)=>{
         state.isFetching = true
         state.error = false
@@ -70,6 +70,7 @@ const productslice = createSlice({
         state.isFetching = false
         state.error = true
     }
+},
 
 })
 

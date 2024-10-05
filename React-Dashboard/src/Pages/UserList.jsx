@@ -40,11 +40,11 @@ const UserList = () => {
         );
       },
     },
-    { field: "email", headerName: "ایمیل", width: 150 },
+    { field: "email", headerName: "ایمیل", width: 250 },
     {
       field: "createdAt",
       headerName: "تاریخ عضویت",
-      width: 150,
+      width: 200,
       renderCell: (params) => {
         return (
           <div>
@@ -53,7 +53,7 @@ const UserList = () => {
         );
       },
     },
-    { field: "updatedAt", headerName: "تاریخ بروزرسانی", width: 150,
+    { field: "updatedAt", headerName: "تاریخ بروزرسانی", width: 200,
       renderCell: (params) => {
         return (
           <div>
@@ -65,7 +65,7 @@ const UserList = () => {
     {
       field: "action",
       headerName: "عملیات",
-      width: 150,
+      width: 100,
       renderCell: (params) => {
         return (
           <>
@@ -97,9 +97,9 @@ const UserList = () => {
   };
 
   return (
-    <div className="flex-6 h-[80vh] mx-10 mt-10 ">
+    <div className="flex-6  mx-10 mt-10 ">
       <DataGrid
-        className=""
+        className=" w-full h-[80%]"
         initialState={{
           pagination: {
             paginationModel: { pageSize: 8, page: 0 },

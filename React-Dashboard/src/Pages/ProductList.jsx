@@ -14,8 +14,8 @@ const ProductList = () => {
   },[dispatch])
 
     const columns = [
-        { field: '_id', headerName: 'ID', width: 50 },
-        { field: 'title', headerName: 'نام ', width: 250,
+        { field: '_id', headerName: 'ID', width: 100 },
+        { field: 'title', headerName: 'نام ', width: 300,
           renderCell: (params)=>{
             return(
               <div className='flex justify-center items-center'>
@@ -26,7 +26,7 @@ const ProductList = () => {
           }
          },
         { field: 'inStock', headerName: 'موجودی', width: 150 },
-        { field: 'price', headerName: 'قیمت', width: 150 },
+        { field: 'price', headerName: 'قیمت', width: 250 },
         // { field: 'transaction', headerName: 'تراکنش', width: 150 },
         { field: 'action', headerName: 'عملیات', width: 150, renderCell:(params)=>{
           return(
@@ -42,17 +42,16 @@ const ProductList = () => {
       ];
  
   const handleDelete=(id)=>{
-    console.log(id);
     deleteProduct(id,dispatch)
     
   }
 
     return (
         <div className='flex-6  h-[80vh] mx-10 mt-10 ' >
-             <DataGrid className=''
+             <DataGrid className='lightShab w-full'
              initialState={{
               pagination: {
-                paginationModel: { pageSize: 8, page: 0 },
+                paginationModel: { pageSize: 7, page: 0 },
               },
             }}
              rows={products} disableRowSelectionOnClick getRowId={(row)=> row._id} columns={columns} checkboxSelection />

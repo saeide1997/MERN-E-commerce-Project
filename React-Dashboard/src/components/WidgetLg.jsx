@@ -8,11 +8,9 @@ const WidgetLg = () => {
         const getOrders = async ()=>{
             try{
                 const res = await userRequest.get("orders/?new=true")
-                // console.log(res);
                 setOrders(res.data)
             }
             catch{
-                console.log('no');
             }
         }
         getOrders()

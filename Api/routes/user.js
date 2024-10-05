@@ -1,15 +1,19 @@
 const router = require("express").Router()
 const User = require("../models/User")
 const {verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToken")
+const bodyParser = require("body-parser");
+const CryptoJS = require("crypto-js");
+var jsonParser = bodyParser.json()
 
 //UPDATE USER
-router.put("/:id", verifyTokenAndAuthorization, async(req, res)=>{
+router.put("/:id",jsonParser, async(req, res)=>{
     if(req.body.password){
         req.body.password = CryptoJS.AES.encrypt(
             req.body.password, process.env.PASS_CODE).toString()
         }
 
     try{
+        console.log(11,req.body);
         const updatedUser = await User.findByIdAndUpdate(req.params.id, 
             {$set: req.body,},
             {new: true}
@@ -59,7 +63,6 @@ router.get("/", async(req, res)=>{
 router.get("/stats", async(req, res)=>{
     const date = new Date()
     const lastYear = new Date( date.setFullYear(date.getFullYear()-1))
-    console.log(new Date( date.setFullYear(date.getFullYear())));
 
     try{
         const data = await User.aggregate([

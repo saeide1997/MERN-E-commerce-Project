@@ -17,7 +17,6 @@ const LoginPage = () => {
         await login(dispatch, {userName, password})
         const user = dispatch(loginStart({userName, password}));
         if (user.payload != 'undefined') {
-            console.log(user.payload);
             Swal.fire({
                 position: "top-end",
                 icon: "success",

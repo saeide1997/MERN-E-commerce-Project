@@ -39,7 +39,6 @@ const ProductPage = () => {
         }
     }
     const cartt = useSelector(state=>state.cart)
-console.log(cartt);
 
     const handleClick = ()=>{
         dispatch(

@@ -9,16 +9,14 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import {addUser} from '../redux/apiCalls'
+import {addUser,updateUser} from '../redux/apiCalls'
 
 const User = () => {
   const location = useLocation();
-  console.log(location.pathname.split("/")[2]);
   const productId = location.pathname.split("/")[2];
   const user = useSelector((state) =>
     state.user.users.find((product) => product._id == productId)
   );
-  console.log(user);
   const [userInf, setUserInf] = useState([]);
   const dispatch = useDispatch();
 
@@ -27,11 +25,10 @@ const User = () => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  console.log(userInf);
 
   const handleClick = (e) => {
     e.preventDefault();
-    addUser(userInf, dispatch);
+    updateUser(productId,userInf, dispatch);
   };
 
   return (
@@ -86,11 +83,11 @@ const User = () => {
             </div>
           </div>
         </div>
-        <div className="flex-2 mr-5 p-5 shadow flex flex-col">
+        <div className="flex-4 mr-5 p-5 shadow flex flex-col">
           <span className="text-2xl">ویرایش</span>
           <form className="flex justify-between mt-5" action="">
-            <div className="">
-              <div className="flex flex-col mt-3">
+            <div className="flex-3 flex flex-wrap">
+              <div className="flex flex-col w-[50%] mt-3 mb-10">
                 <label className="mb-1 text-base" htmlFor="">
                   نام کاربری
                 </label>
@@ -104,7 +101,7 @@ const User = () => {
                   id=""
                 />
               </div>
-              <div className="flex flex-col mt-3">
+              <div className="flex flex-col w-[50%] mt-3 mb-10">
                 <label className="mb-1 text-base" htmlFor="">
                   نام و نام خانوادگی{" "}
                 </label>
@@ -118,7 +115,7 @@ const User = () => {
                   id=""
                 />
               </div>
-              <div className="flex flex-col mt-3">
+              <div className="flex flex-col w-[50%] mt-3 mb-10">
                 <label className="mb-1 text-base" htmlFor="">
                   نقش{" "}
                 </label>
@@ -132,7 +129,7 @@ const User = () => {
                   id=""
                 />
               </div>
-              <div className="flex flex-col mt-3">
+              <div className="flex flex-col w-[50%] mt-3 mb-10">
                 <label className="mb-1 text-base" htmlFor="">
                   شماره تماس{" "}
                 </label>
@@ -146,7 +143,7 @@ const User = () => {
                   id=""
                 />
               </div>
-              <div className="flex flex-col mt-3">
+              <div className="flex flex-col w-[50%] mt-3 mb-10">
                 <label className="mb-1 text-base" htmlFor="">
                   ایمیل{" "}
                 </label>
@@ -160,7 +157,7 @@ const User = () => {
                   id=""
                 />
               </div>
-              <div className="flex flex-col mt-3">
+              <div className="flex flex-col w-[50%] mt-3 mb-10">
                 <label className="mb-1 text-base" htmlFor="">
                   رمز عبور{" "}
                 </label>
@@ -175,7 +172,7 @@ const User = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex-1 flex flex-col justify-between">
               <div className="flex justify-center items-center">
                 <label htmlFor="img">
                   <Publish className="cursor-pointer" />

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Chart from "../components/Chart";
 import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
-import {addProduct} from '../redux/apiCalls'
+import {addProduct,updateProduct} from '../redux/apiCalls'
 import { useDispatch, useSelector } from "react-redux";
 
 const Product = () => {
@@ -39,8 +39,7 @@ const Product = () => {
   const handleClick = (e) => {
     e.preventDefault();
       const product = { ...userInf, categories: cat, color:color, size:size };
-      addProduct(product, dispatch);
-      console.log(product);
+      updateProduct(productId,product, dispatch);
   };
 
   return (

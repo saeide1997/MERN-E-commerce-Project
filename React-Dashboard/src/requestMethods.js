@@ -3,7 +3,6 @@ let TOKEN
 const BASE_URL = 'http://localhost:7000/api/'
 if(localStorage.length>2 ){ 
     TOKEN = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user).currentUser.accessToken 
-    console.log(JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user).currentUser.accessToken);
 }else{
     TOKEN = ''
 }
