@@ -19,6 +19,8 @@ const NewProduct = () => {
   const [file, setFile] = useState([]);
   const [size, setSize] = useState([]);
   const [color, setColor] = useState([]);
+  const [avatar, setAvatar] = useState([]);
+  const [avatarPreview, setAvatarPreview] = useState("https://st4.depositphotos.com/13324256/24475/i/450/depositphotos_244751462-stock-photo-top-view-product-lettering-made.jpg");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -37,6 +39,20 @@ const NewProduct = () => {
 
   const handleSize = (e) => {
     setSize(e.target.value.split(","));
+  };
+
+  const updateProductImg = (e) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setAvatarPreview(reader.result);
+        setAvatar(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0])
+
   };
 
   const handleClick = (e) => {
@@ -76,6 +92,7 @@ const NewProduct = () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('url',downloadURL);
           const product = {
             ...userInf,
             img: downloadURL,
@@ -191,17 +208,17 @@ const NewProduct = () => {
           </div>
           <div className="flex flex-col justify-between">
             <div className="flex justify-center items-center">
-              <label htmlFor="file">
+              <label htmlFor="avatar">
                 <Publish className="cursor-pointer" />
               </label>
               <input
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={e => { updateProductImg(e); setFile(e.target.files[0])}}
                 className="hidden"
                 type="file"
-                name=""
-                id="file"
+                name="avatar"
+                id="avatar"
               />
-              <img className="w-44 h-44" src="" alt="" />
+              <img className="w-44 h-44" src={avatarPreview} alt="" />
             </div>
             <button
               onClick={handleClick}

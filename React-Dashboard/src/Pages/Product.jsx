@@ -3,26 +3,41 @@ import { Link, useLocation } from "react-router-dom";
 import Chart from "../components/Chart";
 import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
-import {addProduct,updateProduct} from '../redux/apiCalls'
+import { addProduct, getProduct, updateProduct } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from 'react-alert';
+import { useAlert } from "react-alert";
+import { updateProductSuccess } from "../redux/productRedux";
 
 const Product = ({ history }) => {
-
-  const location = useLocation()
+  const location = useLocation();
   // const alert = useAlert();
-  console.log(location.pathname.split('/')[2]);
-  const productId = location.pathname.split('/')[2]
-  const product = useSelector(state=> state.product.products.find(product => product._id === productId))
-
-
-  const [userInf, setUserInf] = useState([]);
-  const [cat, setCat] = useState([]);
-  const [size, setSize] = useState([]);
-  const [color, setColor] = useState([]);
+  console.log(location.pathname.split("/")[2]);
+  const productId = location.pathname.split("/")[2];
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === productId)
+  );
+  const img =
+  "https://st4.depositphotos.com/13324256/24475/i/450/depositphotos_244751462-stock-photo-top-view-product-lettering-made.jpg";
+  
+  const userInfo = {
+    "_id": product._id,
+    "title": product.title,
+    "desc": product.desc,
+    "price": product.price,
+    "img": product.img,
+    "inStock": product.inStock,
+  }
+  
+  const [userInf, setUserInf] = useState(userInfo);
+  const [cat, setCat] = useState(product.categories);
+  const [size, setSize] = useState(product.size);
+  const [color, setColor] = useState(product.color);
   const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState("https://st4.depositphotos.com/13324256/24475/i/450/depositphotos_244751462-stock-photo-top-view-product-lettering-made.jpg");
-
+  const [avatarPreview, setAvatarPreview] = useState(
+    product.img ? product.img : img
+  );
+  
+  console.log('history', history);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -30,7 +45,7 @@ const Product = ({ history }) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  
+
   const handleCat = (e) => {
     setCat(e.target.value.split(","));
   };
@@ -43,11 +58,29 @@ const Product = ({ history }) => {
     setSize(e.target.value.split(","));
   };
 
-  const updateProductSubmit = (e) => {
+  const updateProductSubmit = async(e) => {
     e.preventDefault();
 
-    const myProduct = new FormData();
+    const productInf = {
+      ...userInf,
+      categories: cat,
+      color: color,
+      size: size,
+    };
+    console.log(22,productInf);
+    await updateProduct(productId, productInf, dispatch);
+    await getProduct(dispatch)
+    // dispatch(Product(myProduct));
+    if(dispatch(updateProductSuccess(productInf))){
+      console.log('dispach');
+      setNewData()
+    }
+  };
 
+  const setNewData = ()=>{
+   
+    const myProduct = new FormData();
+    
     myProduct.set("title", userInf.title);
     myProduct.set("desc", userInf.desc);
     myProduct.set("price", userInf.price);
@@ -55,8 +88,7 @@ const Product = ({ history }) => {
     myProduct.set("categories", cat);
     myProduct.set("size", size);
     myProduct.set("avatar", avatar);
-    dispatch(Product(myProduct));
-  };
+  }
 
   const updateProductImg = (e) => {
     const reader = new FileReader();
@@ -73,8 +105,13 @@ const Product = ({ history }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-      const productInf = { ...userInf, categories: cat, color:color, size:size };
-      updateProduct(productId,productInf, dispatch);
+    const productInf = {
+      ...userInf,
+      categories: cat,
+      color: color,
+      size: size,
+    };
+    updateProduct(productId, productInf, dispatch);
   };
 
   return (
@@ -91,27 +128,38 @@ const Product = ({ history }) => {
         <div className="flex-1">
           <Chart data={productData} title=" فروش" grid dataKey="فروش" />
         </div>
-        <div className="flex-1 p-5 m-5 shadow">
-          <div className="flex items-center">
+        <div className="flex-1 flex p-5 m-5 shadow">
+          <div className="flex-1 flex items-center">
             <img
-              className="w-10 h-10 rounded-full object-cover ml-5"
-              src={product.img}
+              className="w-full h-full rounded-full object-cover ml-5"
+              src={userInf.img}
               alt=""
             />
-            <span className="">محصول</span>
           </div>
-          <div className="mt-3">
-            <div className="w-36 flex justify-between">
-              <span className="">شناسه:</span>
-              <span className="">{product._id}</span>
+          <div className="flex-2 mt-3">
+            <div className=" flex ">
+              <span className=""> شناسه: </span>
+              <span className="">{userInf._id}</span>
             </div>
-            <div className="w-36 flex justify-between">
-              <span className="">نام کالا:</span>
-              <span className="">{product.title}</span>
+            <div className=" flex ">
+              <span className=""> نام کالا: </span>
+              <span className="">{userInf.title}</span>
             </div>
-            <div className="w-36 flex justify-between">
+            <div className=" flex ">
+              <span className=""> قیمت کالا: </span>
+              <span className="">{userInf.price}</span>
+            </div>
+            <div className=" flex ">
+              <span className=""> سایز کالا: </span>
+              <span className="">{size.join(' ')}</span>
+            </div>
+            <div className=" flex ">
+              <span className="">رنگ کالا:</span>
+              <span className="">{color.join(' ')}</span>
+            </div>
+            <div className=" flex ">
               <span className="">موجودی:</span>
-              <span className="">{product.inStock}</span>
+              <span className="">{(userInf.inStock == true)?' موجود':' ناموجود' }</span>
             </div>
           </div>
         </div>
@@ -128,7 +176,7 @@ const Product = ({ history }) => {
                 onChange={handleChange}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {userInf.title}
+                placeholder={userInf.title}
                 name="title"
                 value={userInf.title}
                 id=""
@@ -143,7 +191,7 @@ const Product = ({ history }) => {
                 onChange={handleChange}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {userInf.desc}
+                placeholder={userInf.desc}
                 name="desc"
                 value={userInf.desc}
                 id=""
@@ -158,7 +206,7 @@ const Product = ({ history }) => {
                 onChange={handleChange}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {userInf.price}
+                placeholder={userInf.price}
                 name="price"
                 value={userInf.price}
                 id=""
@@ -172,8 +220,8 @@ const Product = ({ history }) => {
                 className=" w-[50%] h-8"
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                onChange={handleCat} 
-                placeholder = {cat}
+                onChange={handleCat}
+                placeholder={cat}
                 value={cat}
                 name="categories"
                 id=""
@@ -185,10 +233,10 @@ const Product = ({ history }) => {
               </label>
               <input
                 className=" w-[50%] h-8"
-                onChange={handleColor} 
+                onChange={handleColor}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {color}
+                placeholder={color}
                 value={color}
                 name="color"
                 id=""
@@ -200,10 +248,10 @@ const Product = ({ history }) => {
               </label>
               <input
                 className=" w-[50%] h-8"
-                onChange={handleSize} 
+                onChange={handleSize}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {size}
+                placeholder={size}
                 value={size}
                 name="size"
                 id=""
@@ -213,7 +261,12 @@ const Product = ({ history }) => {
               <label className="mb-1 text-base" for="stock">
                 موجودی
               </label>
-              <select onChange={handleChange} className="h-10 w-[50%] rounded-md pr-2" name="inStock" id="stock">
+              <select
+                onChange={handleChange}
+                className="h-10 w-[50%] rounded-md pr-2"
+                name="inStock"
+                id="stock"
+              >
                 <option value="true">بله</option>
                 <option value="false">خیر</option>
               </select>
@@ -224,14 +277,20 @@ const Product = ({ history }) => {
               <label htmlFor="img">
                 <Publish className="cursor-pointer" />
               </label>
-              <input  onChange={updateProductImg} accept="image/*" className="hidden" type="file" name="avatar" id="img" />
-              <img
-                className="w-44 h-44"
-                src={avatarPreview}
-                alt=""
+              <input
+                onChange={updateProductImg}
+                accept="image/*"
+                className="hidden"
+                type="file"
+                name="avatar"
+                id="img"
               />
+              <img className="w-44 h-44" src={avatarPreview} alt="" />
             </div>
-            <button onClick={updateProductSubmit} className="p-1 rounded-md bg-teal-600 text-white">
+            <button
+              onClick={updateProductSubmit}
+              className="p-1 rounded-md bg-teal-600 text-white"
+            >
               به روز رسانی
             </button>
           </div>

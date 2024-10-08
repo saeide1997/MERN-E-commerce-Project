@@ -21,6 +21,8 @@ router.post("/",jsonParser, async(req, res)=>{
 //UPDATE PRODUCT
 router.put("/:id",jsonParser, async(req, res)=>{
     try{
+        console.log(req.body);
+        console.log(req.params.id);
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, 
             {$set: req.body,},
             {new: true}
