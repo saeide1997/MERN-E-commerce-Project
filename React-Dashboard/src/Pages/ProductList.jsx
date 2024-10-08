@@ -25,7 +25,17 @@ const ProductList = () => {
             )
           }
          },
-        { field: 'inStock', headerName: 'موجودی', width: 150 },
+        { field: 'inStock', headerName: 'موجودی', width: 150,
+          renderCell: (params) => {
+            if(params.row.inStock == true){return(
+            <div>موجود</div>
+          )}else{
+            return(
+              <div>ناموجود</div>
+            )
+          } 
+          },
+         },
         { field: 'price', headerName: 'قیمت', width: 250 },
         // { field: 'transaction', headerName: 'تراکنش', width: 150 },
         { field: 'action', headerName: 'عملیات', width: 150, renderCell:(params)=>{
@@ -41,14 +51,14 @@ const ProductList = () => {
        },
       ];
  
-  const handleDelete=(id)=>{
-    deleteProduct(id,dispatch)
-    
+  const handleDelete=async(id)=>{
+    await deleteProduct(id,dispatch)
+    getProduct(dispatch)
   }
 
     return (
         <div className='flex-6  h-[80vh] mx-10 mt-10 ' >
-             <DataGrid className='lightShab w-full'
+             <DataGrid className='lightShab max-w-full'
              initialState={{
               pagination: {
                 paginationModel: { pageSize: 7, page: 0 },

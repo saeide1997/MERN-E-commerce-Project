@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Chart from "../components/Chart";
 import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
 import {addProduct,updateProduct} from '../redux/apiCalls'
 import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from 'react-alert';
 
-const Product = () => {
+const Product = ({ history }) => {
+
   const location = useLocation()
+  // const alert = useAlert();
   console.log(location.pathname.split('/')[2]);
   const productId = location.pathname.split('/')[2]
-  const product = useSelector(state=> state.product.products.find(product => product._id == productId))
+  const product = useSelector(state=> state.product.products.find(product => product._id === productId))
+
 
   const [userInf, setUserInf] = useState([]);
   const [cat, setCat] = useState([]);
   const [size, setSize] = useState([]);
   const [color, setColor] = useState([]);
+  const [avatar, setAvatar] = useState();
+  const [avatarPreview, setAvatarPreview] = useState("https://st4.depositphotos.com/13324256/24475/i/450/depositphotos_244751462-stock-photo-top-view-product-lettering-made.jpg");
+
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -36,10 +43,38 @@ const Product = () => {
     setSize(e.target.value.split(","));
   };
 
+  const updateProductSubmit = (e) => {
+    e.preventDefault();
+
+    const myProduct = new FormData();
+
+    myProduct.set("title", userInf.title);
+    myProduct.set("desc", userInf.desc);
+    myProduct.set("price", userInf.price);
+    myProduct.set("color", color);
+    myProduct.set("categories", cat);
+    myProduct.set("size", size);
+    myProduct.set("avatar", avatar);
+    dispatch(Product(myProduct));
+  };
+
+  const updateProductImg = (e) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setAvatarPreview(reader.result);
+        setAvatar(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
-      const product = { ...userInf, categories: cat, color:color, size:size };
-      updateProduct(productId,product, dispatch);
+      const productInf = { ...userInf, categories: cat, color:color, size:size };
+      updateProduct(productId,productInf, dispatch);
   };
 
   return (
@@ -93,8 +128,9 @@ const Product = () => {
                 onChange={handleChange}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {product.title}
+                placeholder = {userInf.title}
                 name="title"
+                value={userInf.title}
                 id=""
               />
             </div>
@@ -107,8 +143,9 @@ const Product = () => {
                 onChange={handleChange}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {product.desc}
+                placeholder = {userInf.desc}
                 name="desc"
+                value={userInf.desc}
                 id=""
               />
             </div>
@@ -121,8 +158,9 @@ const Product = () => {
                 onChange={handleChange}
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {product.price}
+                placeholder = {userInf.price}
                 name="price"
+                value={userInf.price}
                 id=""
               />
             </div>
@@ -135,8 +173,9 @@ const Product = () => {
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
                 onChange={handleCat} 
-                placeholder = {product.categories}
-                name="Categories"
+                placeholder = {cat}
+                value={cat}
+                name="categories"
                 id=""
               />
             </div>
@@ -149,7 +188,8 @@ const Product = () => {
                 onChange={handleColor} 
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {product.color}
+                placeholder = {color}
+                value={color}
                 name="color"
                 id=""
               />
@@ -163,7 +203,8 @@ const Product = () => {
                 onChange={handleSize} 
                 style={{ borderBottom: "1px solid gray" }}
                 type="text"
-                placeholder = {product.size}
+                placeholder = {size}
+                value={size}
                 name="size"
                 id=""
               />
@@ -183,14 +224,14 @@ const Product = () => {
               <label htmlFor="img">
                 <Publish className="cursor-pointer" />
               </label>
-              <input className="hidden" type="file" name="" id="img" />
+              <input  onChange={updateProductImg} accept="image/*" className="hidden" type="file" name="avatar" id="img" />
               <img
                 className="w-44 h-44"
-                src={product.img}
+                src={avatarPreview}
                 alt=""
               />
             </div>
-            <button onClick={handleClick} className="p-1 rounded-md bg-teal-600 text-white">
+            <button onClick={updateProductSubmit} className="p-1 rounded-md bg-teal-600 text-white">
               به روز رسانی
             </button>
           </div>

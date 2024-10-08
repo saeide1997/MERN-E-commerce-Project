@@ -3,11 +3,15 @@ const Product = require("../models/Product")
 const {verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToken")
 const bodyParser = require("body-parser");
 var jsonParser = bodyParser.json()
+
+// create
 router.post("/",jsonParser, async(req, res)=>{
     const newProduct = new Product(req.body)
 
     try{
+        console.log(88888,req.body);
         const savedProduct = await newProduct.save()
+        console.log(22222,req.body);
         res.status(200).json(savedProduct)
     }catch(err){
         res.status(500).json(err)
@@ -29,10 +33,12 @@ router.put("/:id",jsonParser, async(req, res)=>{
 })
 
 //DELETE Product
-router.delete(":/id", async(req, res)=>{
+router.delete("/:id", async(req, res)=>{
     try{
-        await Product.findByIdAndDelete(req.param.id)
-        res.status(200).json("Product put")
+        
+        await Product.findByIdAndDelete(req.params.id)
+        console.log(7777,req.params.id);
+        res.status(200).json(`Product put:${id}`)
     }catch(err){
         res.status(500).json(err)
     }

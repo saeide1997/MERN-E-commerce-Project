@@ -24,12 +24,12 @@ const WidgetSm = () => {
         {users.map((user)=>
         <li className="flex items-center justify-center my-5">
             <img className="flex-1 w-10 h-10 rounded-full object-cover " src={user.img || "https://cdn-icons-png.flaticon.com/512/219/219969.png"} alt="" />
-            <div className="flex-5 flex flex-col mx-5">
+            <div className="flex-5 flex flex-col mr-2">
                 <span className="">{user.userName} </span>
                 <span className="">{user.email}  </span>
             </div>
             <button
-            className="flex-2 flex w-[35%] items-center border-none rounded-lg p-2 bg-teal-400/50 text-gray-800 cursor-pointer">
+            className="flex-2 flex items-center border-none rounded-lg p-2 bg-teal-400/50 text-gray-800 cursor-pointer">
                 <Link to={"/user/" +user._id}>
                 <Visibility className="text-lg ml-1"/>
                 مشاهده
