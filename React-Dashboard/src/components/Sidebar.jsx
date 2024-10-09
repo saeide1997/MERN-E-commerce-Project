@@ -31,7 +31,7 @@ const Sidebar = () => {
                     <Storefront className="ml-2"/><Link to={'/products'}>محصولات</Link>
                 </li>
                 <li className="p-1 cursor-pointer text-base flex items-center rounded-lg active:bg-teal-800/50 hover:bg-teal-800/50">
-                    <MoneyOutlined className="ml-2"/><Link to={'/transactions'}>تراکنشها</Link>
+                    <MoneyOutlined className="ml-2"/><Link to={'/orders'}>تراکنشها</Link>
                 </li>
                 <li className="p-1 cursor-pointer text-base flex items-center rounded-lg active:bg-teal-800/50 hover:bg-teal-800/50">
                     <Report className="ml-2"/><Link to={'/reports'}>گزارشات</Link>

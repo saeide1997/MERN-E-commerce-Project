@@ -27,7 +27,7 @@ const ProductList = () => {
          },
         { field: 'inStock', headerName: 'موجودی', width: 150,
           renderCell: (params) => {
-            if(params.row.inStock == true){return(
+            if(params.row.inStock === true){return(
             <div>موجود</div>
           )}else{
             return(

@@ -1,9 +1,11 @@
 const router = require("express").Router()
 const Order = require("../models/Order")
 const {verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToken")
+const bodyParser = require("body-parser");
+var jsonParser = bodyParser.json()
 
 //CREATE Order
-router.post("/", verifyToken, async(req, res)=>{
+router.post("/",jsonParser, async(req, res)=>{
     const newOrder = new Order(req.body)
 
     try{
@@ -15,7 +17,7 @@ router.post("/", verifyToken, async(req, res)=>{
 })
 
 //UPDATE Order
-router.put("/:id", verifyTokenAndAdmin, async(req, res)=>{
+router.put("/:id",jsonParser, async(req, res)=>{
     
     try{
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, 
@@ -30,7 +32,7 @@ router.put("/:id", verifyTokenAndAdmin, async(req, res)=>{
 })
 
 //DELETE Order
-router.delete(":/id", verifyTokenAndAdmin, async(req, res)=>{
+router.delete("/:id", jsonParser, async(req, res)=>{
     try{
         await Order.findByIdAndDelete(req.param.id)
         res.status(200).json("Order put")
@@ -40,7 +42,7 @@ router.delete(":/id", verifyTokenAndAdmin, async(req, res)=>{
 })
 
 //GET Order
-router.get("/find/:id", async(req, res)=>{
+router.post("/find/:id", jsonParser, async(req, res)=>{
     try{
         const order = await Order.findOne({id: req.params.id})
         res.status(200).json(order)
@@ -51,7 +53,7 @@ router.get("/find/:id", async(req, res)=>{
 
 
 //GET ALL OrderS
-router.get("/", async(req, res)=>{
+router.get("/orders", async(req, res)=>{
 
     try{
         
@@ -64,7 +66,7 @@ router.get("/", async(req, res)=>{
 })
 
 //GET MONTHLY INCOME
-router.get("/income", verifyTokenAndAdmin, async(req, res)=>{
+router.get("/income", async(req, res)=>{
     const date = new Date()
     const lastMonth = new Date( date.setMonth(date.getMonth()-1))
     const prevMonth = new Date( new Date().setMonth(lastMonth.getMonth()-1))

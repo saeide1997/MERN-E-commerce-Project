@@ -4,7 +4,6 @@ import News from '../component/News';
 import Footer from '../component/Footer';
 import { Add, Remove } from '@mui/icons-material';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/cartRedux';
 import { publicRequest } from '../requestMethods';
