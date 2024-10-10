@@ -5,6 +5,7 @@ const productslice = createSlice({
     initialState: {
         products: [],
         isFetching: false,
+        addProductOpration: false,
         error: false
     },
     reducers: {
@@ -64,6 +65,7 @@ const productslice = createSlice({
         },
         addProductSuccess: (state, action) => {
             state.isFetching = false
+            state.addProductOpration = true
             state.products.push(action.payload)
         },
         addProductFailure: (state) => {

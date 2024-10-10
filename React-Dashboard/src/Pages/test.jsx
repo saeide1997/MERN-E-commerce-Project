@@ -1,133 +1,81 @@
-import React, { Fragment, useState, useEffect } from "react";
-import "./UpdateProfile.css";
-import Loader from "../layout/Loader/Loader";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import FaceIcon from "@material-ui/icons/Face";
-import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
-import { useAlert } from "react-alert";
-import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
-import MetaData from "../layout/MetaData";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
-const UpdateProfile = ({ history }) => {
+export default function SignIn() {
+  const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const alert = useAlert();
-
-  const { user } = useSelector((state) => state.user);
-  const { error, isUpdated, loading } = useSelector((state) => state.profile);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
-
-  const updateProfileSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const myForm = new FormData();
-
-    myForm.set("name", name);
-    myForm.set("email", email);
-    myForm.set("avatar", avatar);
-    dispatch(updateProfile(myForm));
-  };
-
-  const updateProfileDataChange = (e) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatarPreview(reader.result);
-        setAvatar(reader.result);
-      }
-    };
-
-    reader.readAsDataURL(e.target.files[0]);
-  };
-
-  useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setEmail(user.email);
-      setAvatarPreview(user.avatar.url);
-    }
-
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
-
-    if (isUpdated) {
-      alert.success("Profile Updated Successfully");
-      dispatch(loadUser());
-
-      history.push("/account");
-
-      dispatch({
-        type: UPDATE_PROFILE_RESET,
+    try {
+      dispatch(signInStart());
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+        return;
+      }
+      dispatch(signInSuccess(data));
+      navigate('/');
+    } catch (error) {
+      dispatch(signInFailure(error.message));
     }
-  }, [dispatch, error, alert, history, user, isUpdated]);
+  };
   return (
-    <Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
-        <Fragment>
-          <MetaData title="Update Profile" />
-          <div className="updateProfileContainer">
-            <div className="updateProfileBox">
-              <h2 className="updateProfileHeading">Update Profile</h2>
+    <div className='p-3 max-w-lg mx-auto'>
+      <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        <input
+          type='email'
+          placeholder='email'
+          className='border p-3 rounded-lg'
+          id='email'
+          onChange={handleChange}
+        />
+        <input
+          type='password'
+          placeholder='password'
+          className='border p-3 rounded-lg'
+          id='password'
+          onChange={handleChange}
+        />
 
-              <form
-                className="updateProfileForm"
-                encType="multipart/form-data"
-                onSubmit={updateProfileSubmit}
-              >
-                <div className="updateProfileName">
-                  <FaceIcon />
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    required
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="updateProfileEmail">
-                  <MailOutlineIcon />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    required
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-
-                <div id="updateProfileImage">
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  <input
-                    type="file"
-                    name="avatar"
-                    accept="image/*"
-                    onChange={updateProfileDataChange}
-                  />
-                </div>
-                <input
-                  type="submit"
-                  value="Update"
-                  className="updateProfileBtn"
-                />
-              </form>
-            </div>
-          </div>
-        </Fragment>
-      )}
-    </Fragment>
+        <button
+          disabled={loading}
+          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+        >
+          {loading ? 'Loading...' : 'Sign In'}
+        </button>
+        <OAuth/>
+      </form>
+      <div className='flex gap-2 mt-5'>
+        <p>Dont have an account?</p>
+        <Link to={'/sign-up'}>
+          <span className='text-blue-700'>Sign up</span>
+        </Link>
+      </div>
+      {error && <p className='text-red-500 mt-5'>{error}</p>}
+    </div>
   );
-};
-
-export default UpdateProfile;
+}

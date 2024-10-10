@@ -11,6 +11,8 @@ import NewProduct from "./Pages/NewProduct";
 import LoginPage from "./Pages/LoginPage";
 import OrderList from "./Pages/OrderList";
 import Order from "./Pages/Order";
+import { createBrowserHistory } from 'history';
+const history = createBrowserHistory();
 
 function App() {
   // const admin = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user).currentUser.isAdmin
@@ -25,7 +27,7 @@ function App() {
       <Topbar />
       <div className="containerr">
         <Sidebar />
-        <Routes>
+        <Routes  history={history}>
           <Route path="/" element={<Home/>} />
           <Route path= "/userList" element={<UserList/>} />
           <Route path= "/user/:userId" element={<User/>} />

@@ -13,6 +13,7 @@ import { getOrderStart, getOrderSuccess, getOrderFailure,
     addOrderStart, addOrderSuccess, addOrderFailure,
     updateOrderStart, updateOrderSuccess, updateOrderFailure, } from './orderRedux'
 
+
 export const login = async (dispatch, user)=>{
     dispatch(loginStart())
     try{
@@ -38,7 +39,6 @@ export const getUser = async (dispatch)=>{
 export const addUser = async (User, dispatch)=>{
     dispatch(addUserStart())
     try{
-        console.log(User);
         const res = await userRequest.post('/auth/register',User)
         dispatch(addUserSuccess(res.data))
 
@@ -51,7 +51,6 @@ export const addUser = async (User, dispatch)=>{
 export const updateUser = async (id, user, dispatch)=>{
     dispatch(updateUserStart())
     try{
-        console.log('user',user);
         const res = await userRequest.put(`/users/${id}`, user)
         dispatch(updateUserSuccess(res.data)) //id:id product:product
         
@@ -73,7 +72,6 @@ export const getProduct = async (dispatch)=>{
 export const deleteProduct = async (id, dispatch)=>{
     dispatch(deleteProductStart())
     try{
-        console.log(55555,id);
         const res = await userRequest.delete(`/product/${id}`)
         dispatch(deleteProductSuccess(res.data))
         
@@ -87,8 +85,6 @@ export const deleteProduct = async (id, dispatch)=>{
 export const updateProduct = async (id, product, dispatch)=>{
     dispatch(updateProductStart())
     try{
-        console.log('callid',id);
-        console.log('callPr',product);
         const res = await userRequest.put(`/product/${id}`, product)
         dispatch(updateProductSuccess(res.data)) //id:id product:product
 
@@ -97,21 +93,11 @@ export const updateProduct = async (id, product, dispatch)=>{
     }
 }
 
-export const addProduct = async (product, dispatch)=>{
-    dispatch(addProductStart())
-    try{
-        const res = await userRequest.post(`/product/`,product)
-        dispatch(addProductSuccess(res.data))
 
-    }catch(err){
-        dispatch(addProductFailure())
-    }
-}
 
 export const getOrder = async (dispatch)=>{
     dispatch(getOrderStart())
     try{
-        console.log('wwww');
         const res = await publicRequest.get("/orders/orders")
         dispatch(getOrderSuccess(res.data))
 
@@ -137,8 +123,6 @@ export const deleteOrder = async (id, dispatch)=>{
 export const updateOrder = async (id, order, dispatch)=>{
     dispatch(updateOrderStart())
     try{
-        console.log('callid',id);
-        console.log('callPr',order);
         const res = await userRequest.put(`/orders/${id}`, order)
         dispatch(updateOrderSuccess(res.data)) //id:id order:order
 

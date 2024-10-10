@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Chart from "../components/Chart";
 import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
 import { addProduct, updateProduct } from "../redux/apiCalls";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { publicRequest, userRequest } from "../requestMethods";
+// import { ChakraProvider } from "@chakra-ui/react";
+import LoadingBar from "react-top-loading-bar";
+import { Progress } from "semantic-ui-react";
 import {
   getStorage,
   ref,
@@ -12,16 +16,42 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../firebase";
+import {
+  addProductFailure,
+  addProductStart,
+  addProductSuccess,
+} from "../redux/productRedux";
 
-const NewProduct = () => {
+const NewProduct = (props) => {
+  // console.log(props);
   const [userInf, setUserInf] = useState([]);
   const [cat, setCat] = useState([]);
   const [file, setFile] = useState([]);
   const [size, setSize] = useState([]);
   const [color, setColor] = useState([]);
   const [avatar, setAvatar] = useState([]);
-  const [avatarPreview, setAvatarPreview] = useState("https://st4.depositphotos.com/13324256/24475/i/450/depositphotos_244751462-stock-photo-top-view-product-lettering-made.jpg");
+  const [avatarPreview, setAvatarPreview] = useState(
+    "https://st4.depositphotos.com/13324256/24475/i/450/depositphotos_244751462-stock-photo-top-view-product-lettering-made.jpg"
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [percentage, setPercentage] = useState(0);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // State for the main progress bar
+  const [progressMain, setProgressMain] = useState();
+  const ProgressBar = ({ uploadState, percentUploaded }) =>
+    uploadState === "uploading" && (
+      <Progress
+        className="progress__bar"
+        percent={percentUploaded}
+        progress
+        indicating
+        size="medium"
+        inverted
+      />
+    );
 
   const handleChange = (e) => {
     setUserInf((prev) => {
@@ -51,11 +81,10 @@ const NewProduct = () => {
       }
     };
 
-    reader.readAsDataURL(e.target.files[0])
-
+    reader.readAsDataURL(e.target.files[0]);
   };
 
-  const handleClick = (e) => {
+  const uploadImage = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
     const storage = getStorage(app);
@@ -70,11 +99,12 @@ const NewProduct = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+        setIsLoading(true)
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+        setPercentage(Math.round(progress));
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -92,19 +122,30 @@ const NewProduct = () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log('url',downloadURL);
-          const product = {
-            ...userInf,
-            img: downloadURL,
-            categories: cat,
-            color: color,
-            size: size,
-          };
-          console.log(product);
-          addProduct(product, dispatch);
+          return downloadURL;
+          
         });
+        setIsLoading(false)
       }
     );
+  };
+  const handleClick = async (e) => {
+    const product = {
+      ...userInf,
+      img: uploadImage(),
+      categories: cat,
+      color: color,
+      size: size,
+    };
+    try {
+      dispatch(addProductStart());
+      const res = await userRequest.post(`/product/`, product);
+      dispatch(addProductSuccess(res.data));
+      navigate("/products");
+    } catch (err) {
+      dispatch(addProductFailure());
+      return err;
+    }
   };
 
   return (
@@ -207,18 +248,45 @@ const NewProduct = () => {
             </div>
           </div>
           <div className="flex flex-col justify-between">
-            <div className="flex justify-center items-center">
-              <label htmlFor="avatar">
-                <Publish className="cursor-pointer" />
-              </label>
-              <input
-                onChange={e => { updateProductImg(e); setFile(e.target.files[0])}}
-                className="hidden"
-                type="file"
-                name="avatar"
-                id="avatar"
-              />
-              <img className="w-44 h-44" src={avatarPreview} alt="" />
+            <div className="flex flex-col justify-center items-center">
+              <img className="flex-2 w-44 h-44" src={avatarPreview} alt="" />
+              <div className="flex-1 flex justify-center items-center my-5 flex-col">
+                <label htmlFor="avatar">
+                  <Publish className="my-3 cursor-pointer" />
+                  <button className="w-28 shadow mr-1" onClick={uploadImage}>آپلود</button>
+                </label>
+                <div className="w-full h-10 bg-gray-100 relative text-teal-950">
+                  {percentage ? (
+                    <div
+                      className="h-10 flex justify-center items-center"
+                      style={{
+                        width: `${percentage}`,
+                        background: "linear-gradient(45deg,teal,white)",
+                      }}
+                    >
+                      {percentage + "%"}
+                    </div>
+                  ) : (
+                    <div className="h-10 flex justify-center items-center" >0%</div>
+                  )}
+                </div>
+                
+                {isLoading ? (
+                  <span className="">در حال بارگذاری ...</span>
+                ) : (
+                  <></>
+                )}
+                <input
+                  onChange={(e) => {
+                    updateProductImg(e);
+                    setFile(e.target.files[0]);
+                  }}
+                  className="hidden"
+                  type="file"
+                  name="avatar"
+                  id="avatar"
+                />
+              </div>
             </div>
             <button
               onClick={handleClick}
