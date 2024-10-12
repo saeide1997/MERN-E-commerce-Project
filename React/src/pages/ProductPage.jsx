@@ -51,7 +51,7 @@ const ProductPage = () => {
                 <div className='flex-1'>
                     <img className='w-[100%] h-[90vh] object-contain' src={product.img} alt="" />
                 </div>
-                <div className='flex-1 px-10 mt-10'>
+                <div className='flex-2 px-10 mt-10'>
                     <h1 className=' font-[100]'>{product.title}</h1>
                     <p className='my-5'>{product.desc}</p>
                     <span className='text-[40px] font-[100]'>{NumberFormat.format(product.price)} ریال </span>
