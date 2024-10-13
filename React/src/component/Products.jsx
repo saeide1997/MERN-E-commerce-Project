@@ -54,7 +54,7 @@ const Products = ({ category, filters, sort }) => {
     }, [sort])
 
     return (
-        <div className='flex p-5 flex-wrap justify-between'>
+        <div className='flex h-[100vh] p-5 flex-wrap justify-between'>
             {category ? filteredProducts.map(item => (
                 <Product item={item} key={item.id} />
             )) : products.slice(0, 8).map(item => (

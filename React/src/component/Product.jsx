@@ -7,7 +7,7 @@ const Product = ({item}) => {
 
 
     return (
-        <div className='flex-1 m-1 h-[350px] min-w-[280px] flex items-center justify-center bg-gray-100 relative group'>
+        <div className='flex-1 my-4 mx-10 h-[300px] min-w-[280px] flex items-center justify-center bg-fuchsia-100 rounded-md shadow relative group hover:shadow-none'>
             <div></div>
             <img className='object-contain h-[75%] w-[80%] z-20' src={item.img} alt="" /> 
             <div className='z-30 opacity-5 w-[100%] h-[100%] absolute top-0 right-0 flex items-center justify-center bg-slate-500/30  group-hover:opacity-90 ' >
@@ -20,7 +20,7 @@ const Product = ({item}) => {
                     </Link>
                 </div>
                 <div className=' m-1 w-[40px] h-[40px] rounded-full bg-white flex justify-center items-center cursor-pointer hover:scale-125'>
-                    <FavoriteBorderOutlined/>
+                    <FavoriteBorderOutlined className='text-red-600'/>
                 </div>
             </div>
         </div>

@@ -38,6 +38,11 @@ export const sliderItems = [
       img: "https://cdn-icons-png.freepik.com/512/42/42177.png",
       title: "گردنبند",
     },
+    {
+      id: 4,
+      img: "https://cdn-icons-png.flaticon.com/512/1062/1062908.png",
+      title: "سرویس طلا",
+    },
   ]
 
   export const popularProducts = [
