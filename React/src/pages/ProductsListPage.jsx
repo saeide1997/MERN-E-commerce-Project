@@ -53,7 +53,7 @@ const ProductsList = () => {
                     </select>
                 </div>
             </div>
-                <Products category={category} filters={filter} sort={sort}/>
+                <Products category={category} filters={filter} sort={sort} quantity={8}/>
                 <News/>
                 <Footer/>
         </div>

@@ -7,7 +7,7 @@ const Product = ({item}) => {
 
 
     return (
-        <div className='flex-1 my-4 mx-10 h-[300px] min-w-[280px] flex items-center justify-center bg-fuchsia-100 rounded-md shadow relative group hover:shadow-none'>
+        <div className='flex-1 my-4 mx-10 h-[180px] min-w-[180px] flex items-center justify-center bg-fuchsia-100 rounded-md shadow relative group hover:shadow-none'>
             <div></div>
             <img className='object-contain h-[75%] w-[80%] z-20' src={item.img} alt="" /> 
             <div className='z-30 opacity-5 w-[100%] h-[100%] absolute top-0 right-0 flex items-center justify-center bg-slate-500/30  group-hover:opacity-90 ' >

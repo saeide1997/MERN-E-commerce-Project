@@ -11,7 +11,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="footerGif flex">
+    <div className="footerGif h-[35vh] flex">
       <div className="flex">
         <div className="flex-1 flex flex-col p-5">
           <h1 className="text-white">.SOHO</h1>

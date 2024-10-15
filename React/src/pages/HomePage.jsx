@@ -12,7 +12,7 @@ const HomePage = () =>{
             <Navbar/>
             <Slider/>
             <Categories/>
-            <Products/>
+            <Products quantity={10}/>
             <News/>
             <Footer/>
         </div>
