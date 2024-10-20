@@ -18,7 +18,7 @@ const OrderList = () => {
   useEffect(() => {
     getOrder(dispatch);
   }, [dispatch]);
-
+  console.log(orders);
   const columns = [
     { field: "_id", headerName: "ID", width: 100, resizable: true },
     {
@@ -62,16 +62,16 @@ const OrderList = () => {
       width: 150,
       renderCell: (params) => {
         if (params.row.status === "pending") {
-          statusColor = "bg-pink-500/40";
+          statusColor = "bg-orange-500/50";
         }
         if (params.row.status === "cancelled") {
-          statusColor = "bg-red-500/40";
+          statusColor = "bg-red-500/50";
         }
         if (params.row.status === "complited") {
-          statusColor = "bg-green-500/40";
+          statusColor = "bg-green-500/50";
         }
         if (params.row.status === "draft") {
-          statusColor = "bg-gray-500/40";
+          statusColor = "bg-gray-500/50";
         }
         return (
           <div

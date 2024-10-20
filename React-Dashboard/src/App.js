@@ -12,6 +12,7 @@ import LoginPage from "./Pages/LoginPage";
 import OrderList from "./Pages/OrderList";
 import Order from "./Pages/Order";
 import { createBrowserHistory } from 'history';
+import Analisys from "./Pages/Analisys";
 const history = createBrowserHistory();
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path= "/newProduct" element={<NewProduct/>} />
           <Route path= "/orders" element={<OrderList/>} />
           <Route path= "/order/:orderId" element={<Order/>} />
+          <Route path= "/analisys" element={<Analisys/>} />
           <Route path="*" element={''} />
         </Routes>
         </div>

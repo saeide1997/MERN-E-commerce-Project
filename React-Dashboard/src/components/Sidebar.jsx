@@ -13,7 +13,7 @@ const Sidebar = () => {
                     <HomeMaxOutlined className="ml-2"/><Link to={'/'}>خانه</Link>
                 </li>
                 <li className="p-1 cursor-pointer text-base flex items-center rounded-lg active:bg-teal-800/50 hover:bg-teal-800/50">
-                    <Timeline className="ml-2"/>آنالیز
+                    <Timeline className="ml-2"/><Link to={'/analisys'}>آنالیز</Link>
                 </li>
                 <li className="p-1 cursor-pointer text-base flex items-center rounded-lg active:bg-teal-800/50 hover:bg-teal-800/50">
                     <TrendingUp className="ml-2"/>فروش

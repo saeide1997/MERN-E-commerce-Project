@@ -8,7 +8,7 @@ const WidgetLg = () => {
   var nf = new Intl.NumberFormat();
   const dispatch = useDispatch();
   const userInf = useSelector((state) => state.user.users);
-  console.log(userInf);
+  // console.log(userInf);
 
   useEffect(() => {
     getProduct(dispatch);

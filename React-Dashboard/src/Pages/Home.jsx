@@ -44,6 +44,7 @@ const Home = () => {
     <div className="flex-6 mt-10">
       <FeaturedInfo />
       <Chart
+      classs="m-5 p-5 shadow"
         data={userStats}
         title="فعالیت کاربران"
         grid

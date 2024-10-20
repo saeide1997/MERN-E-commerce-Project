@@ -101,4 +101,40 @@ router.get("/income", async(req, res)=>{
     }
 })
 
+//GET MONTHLY INCOME
+router.get("/year", async(req, res)=>{
+    const date = new Date()
+    const prevMonth = new Date( date.setMonth(date.getMonth()-10))
+
+    try{
+        const income =await Order.aggregate([
+            {
+                $match: {createdAt:{$gte: prevMonth}}
+            },
+            {
+                $unwind: "$products"
+            },
+            {
+                $project: {month: "$createdAt", sales: "$amount", quantity:"$products.quantity"},
+            },
+            {
+                $group:{
+                    _id: {$substr:["$month",5,2]},
+                    quantity: {$sum: "$quantity"},
+                    total: {$sum: "$sales"}
+                }
+            },
+            {
+                $sort:{
+                    _id : 1
+                }
+            }
+        ])
+        
+        res.status(200).json(income)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
 module.exports =router
