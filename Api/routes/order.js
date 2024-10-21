@@ -115,12 +115,13 @@ router.get("/year", async(req, res)=>{
                 $unwind: "$products"
             },
             {
-                $project: {month: "$createdAt", sales: "$amount", quantity:"$products.quantity"},
+                $project: {month: "$createdAt",status:"$status", sales: "$amount", quantity:"$products.quantity"},
             },
             {
                 $group:{
                     _id: {$substr:["$month",5,2]},
                     quantity: {$sum: "$quantity"},
+                    stat: {$addToSet: "$status"},
                     total: {$sum: "$sales"}
                 }
             },

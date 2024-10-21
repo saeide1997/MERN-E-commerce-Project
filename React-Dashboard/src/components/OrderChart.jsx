@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import Chart from "../components/Chart";
+import Chart from "./Chart";
 import { userRequest } from "../requestMethods";
 
-const SellChart = () => {
-  const [orderAmount, setOrderAmount] = useState([]);
+const OrderChart = () => {
+  const [orderQuantity, setOrderQuantity] = useState([]);
   const months = useMemo(
     () => [
       "فروردین",
@@ -26,12 +26,13 @@ const SellChart = () => {
     const getStats = async () => {
       try {
         const res = await userRequest.get("orders/year");
+        console.log(res.data);
         res.data.map((item) => {
-          setOrderAmount((prev) => [
+          setOrderQuantity((prev) => [
             ...prev,
             {
               name: months[item._id - 1],
-              "جمع فروش ": item.total,
+              "جمع سفارشات ": item.quantity,
             },
           ]);
         });
@@ -43,18 +44,18 @@ const SellChart = () => {
     <div className="w-[400px] h-[300px] ">
       <Chart
         classs="m-5 py-3 px-5 shadow"
-        c1= "#ff5400"
-        c2= "#ff5400"
-        c3= "#ff854a"
+        c1= "#003123"
+        c2= "#003123"
+        c3= "#00aa7a"
         height1="3"
         height2="2"
-        data={orderAmount}
-        title="فروش ماهانه"
+        data={orderQuantity}
+        title="سفارش ماهانه"
         grid
-        dataKey="جمع فروش "
+        dataKey="جمع سفارشات "
       />
     </div>
   );
 };
 
-export default SellChart;
+export default OrderChart;

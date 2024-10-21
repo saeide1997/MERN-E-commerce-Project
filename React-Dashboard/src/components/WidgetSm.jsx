@@ -29,7 +29,7 @@ const WidgetSm = () => {
                 <span className="">{user.email}  </span>
             </div>
             <button
-            className="flex-2 flex items-center border-none rounded-lg p-2 bg-teal-400/50 text-gray-800 cursor-pointer">
+            className="flex-2 shadow  hover:shadow-none flex items-center border-none rounded-lg p-2 bg-teal-400/50 text-gray-800 cursor-pointer">
                 <Link to={"/user/" +user._id}>
                 <Visibility className="text-lg ml-1"/>
                 مشاهده

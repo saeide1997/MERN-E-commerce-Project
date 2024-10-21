@@ -10,14 +10,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Chart = ({ title, data, dataKey, grid, classs }) => {
+const Chart = ({ title, data, dataKey, grid, classs, height1, height2, c1, c2, c3 }) => {
   return (
     <div className={ classs }>
       <h3 className="mb-4">{title}</h3>
-      <ResponsiveContainer width="100%" height="100%" aspect={3 / 2}>
+      <ResponsiveContainer width="100%" height="100%" aspect={height1 / height2}>
         <AreaChart
           width={500}
-          height={500}
+          height={200}
           data={data}
           margin={{
             top: 10,
@@ -27,15 +27,15 @@ const Chart = ({ title, data, dataKey, grid, classs }) => {
           }}
         >
           {grid && <CartesianGrid strokeDasharray="3 3" />}
-          <XAxis dataKey="name" stroke="#00513a"/>
+          <XAxis dataKey="name" stroke={c1}/>
           {/* <YAxis /> */}
           <Tooltip />
           <Legend />
           <Area
             type="monotone"
             dataKey={dataKey}
-            stroke="#00513a"
-            fill="#00aa7a"
+            stroke={c2}
+            fill={c3}
             activeDot={{ r: 8 }}
           />
           {/* <Line type="monotone" dataKey="activeUsers" stroke="#82ca9d" /> */}
