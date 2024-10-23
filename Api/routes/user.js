@@ -1,8 +1,8 @@
 const router = require("express").Router()
 const User = require("../models/User")
-const {verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToken")
 const bodyParser = require("body-parser");
 const CryptoJS = require("crypto-js");
+const verifyToken = require("../middlewares/authMiddleware")
 var jsonParser = bodyParser.json()
 
 //UPDATE USER
@@ -37,7 +37,7 @@ router.delete(":/id", async(req, res)=>{
 })
 
 //GET USER
-router.get("/find/:id", verifyTokenAndAdmin, async(req, res)=>{
+router.get("/find/:id", async(req, res)=>{
     try{
         const user = await User.findById(req.params.id)
         const {password, ...others} = user._doc

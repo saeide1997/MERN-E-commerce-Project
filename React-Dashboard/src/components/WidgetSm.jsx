@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Sync, Visibility } from "@mui/icons-material";
+import {  Visibility } from "@mui/icons-material";
 import { userRequest } from '../requestMethods';
 import { Link } from 'react-router-dom';
 

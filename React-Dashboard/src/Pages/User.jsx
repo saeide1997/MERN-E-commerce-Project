@@ -9,13 +9,13 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import {addUser,updateUser} from '../redux/apiCalls'
+import {updateUser} from '../redux/apiCalls'
 
 const User = () => {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
   const user = useSelector((state) =>
-    state.user.users.find((product) => product._id == productId)
+    state.user.users.find((product) => product._id === productId)
   );
   const [userInf, setUserInf] = useState([]);
   const dispatch = useDispatch();

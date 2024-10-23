@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 const FeaturedInfo = () => {
   var nf = new Intl.NumberFormat();
-  let perc;
+
   const [income, setIncomes] = useState([]);
   const [incomepercent, setIncomePercent] = useState(0);
   const [sellpercent, setSellPercent] = useState(0);
@@ -31,18 +31,18 @@ const FeaturedInfo = () => {
 
   let monthName;
   const monthDefini = () => {
-    income._id == "01" && (monthName = "فروردین");
-    income._id == "02" && (monthName = "اردیبهشت");
-    income._id == "03" && (monthName = "خرداد");
-    income._id == "04" && (monthName = "تیر");
-    income._id == "05" && (monthName = "مرداد");
-    income._id == "06" && (monthName = "شهریور");
-    income._id == "07" && (monthName = "مهر");
-    income._id == "08" && (monthName = "آبان");
-    income._id == "09" && (monthName = "آذر");
-    income._id == "10" && (monthName = "دی");
-    income._id == "11" && (monthName = "بهن");
-    income._id == "12" && (monthName = "اسفند");
+    income._id === "01" && (monthName = "فروردین");
+    income._id === "02" && (monthName = "اردیبهشت");
+    income._id === "03" && (monthName = "خرداد");
+    income._id === "04" && (monthName = "تیر");
+    income._id === "05" && (monthName = "مرداد");
+    income._id === "06" && (monthName = "شهریور");
+    income._id === "07" && (monthName = "مهر");
+    income._id === "08" && (monthName = "آبان");
+    income._id === "09" && (monthName = "آذر");
+    income._id === "10" && (monthName = "دی");
+    income._id === "11" && (monthName = "بهن");
+    income._id === "12" && (monthName = "اسفند");
     return monthName;
   };
 

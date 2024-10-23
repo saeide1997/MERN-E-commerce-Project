@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import {login} from '../redux/apiCalls'
 import { useNavigate } from "react-router-dom";
+import { userRequest } from "../requestMethods";
 import Swal from 'sweetalert2'
+import {
+    loginStart, loginSuccess, loginFailure
+  } from "../redux/userRedux";
 
 const LoginPage = () => {
 
@@ -13,15 +17,30 @@ const LoginPage = () => {
 
     const handleClick = async (e)=>{
         e.preventDefault()
-        await login(dispatch, {userName, password})
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "با موفقیت وارد شدید",
-            showConfirmButton: false,
-            timer: 1500
-          });
-        navigate("/")
+        try {
+            dispatch(loginStart());
+            const res = await userRequest.post(`/auth/login/`, {userName, password});
+            console.log(res);
+            dispatch(loginSuccess(res.data));
+            navigate("/");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "با موفقیت وارد شدید",
+              showConfirmButton: false,
+              timer: 3500
+            });
+          } catch (err) {
+            dispatch(loginFailure());
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: "نام کاربری یا رمز عبور نادرست است.",
+              showConfirmButton: false,
+              timer: 3500
+            });
+            return err;
+          }
     }
 
     return (

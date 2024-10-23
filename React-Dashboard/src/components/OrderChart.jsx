@@ -26,7 +26,6 @@ const OrderChart = () => {
     const getStats = async () => {
       try {
         const res = await userRequest.get("orders/year");
-        console.log(res.data);
         res.data.map((item) => {
           setOrderQuantity((prev) => [
             ...prev,

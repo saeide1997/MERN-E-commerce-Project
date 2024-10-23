@@ -5,7 +5,6 @@ import { loginFailure, loginStart, loginSuccess,
  } from "./userRedux"
 import {getProductFailure,getProductStart,getProductSuccess,
      deleteProductFailure,deleteProductStart,deleteProductSuccess,
-     addProductStart, addProductSuccess, addProductFailure,
      updateProductStart, updateProductSuccess, updateProductFailure } from "./productRedux"
 import { publicRequest, userRequest } from "../requestMethods"
 import { getOrderStart, getOrderSuccess, getOrderFailure,

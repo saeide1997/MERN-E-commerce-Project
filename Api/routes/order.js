@@ -1,6 +1,5 @@
 const router = require("express").Router()
 const Order = require("../models/Order")
-const {verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToken")
 const bodyParser = require("body-parser");
 var jsonParser = bodyParser.json()
 

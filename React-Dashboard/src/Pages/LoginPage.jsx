@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import {login} from '../redux/apiCalls'
 import { useNavigate } from "react-router-dom";
-import { loginFailure, loginStart, loginSuccess } from "../redux/userRedux"
+import { loginStart } from "../redux/userRedux"
 import Swal from 'sweetalert2'
 
 const LoginPage = () => {
@@ -16,7 +16,7 @@ const LoginPage = () => {
         e.preventDefault() //Prevent to Refreshing the Page
         await login(dispatch, {userName, password})
         const user = dispatch(loginStart({userName, password}));
-        if (user.payload != 'undefined') {
+        if (user.payload !== 'undefined') {
             Swal.fire({
                 position: "top-end",
                 icon: "success",

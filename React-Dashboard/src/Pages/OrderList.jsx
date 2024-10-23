@@ -18,7 +18,7 @@ const OrderList = () => {
   useEffect(() => {
     getOrder(dispatch);
   }, [dispatch]);
-  console.log(orders);
+  // console.log('orders',orders);
   const columns = [
     { field: "_id", headerName: "ID", width: 100, resizable: true },
     {

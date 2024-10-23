@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Chart from "../components/Chart";
 import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
-import { addProduct, getProduct, updateProduct } from "../redux/apiCalls";
+import { getProduct, updateProduct } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
 import { updateProductSuccess } from "../redux/productRedux";
 
 const Product = ({ history }) => {
@@ -159,7 +158,7 @@ const Product = ({ history }) => {
             </div>
             <div className=" flex ">
               <span className="">موجودی:</span>
-              <span className="">{(userInf.inStock == true)?' موجود':' ناموجود' }</span>
+              <span className="">{(userInf.inStock === true)?' موجود':' ناموجود' }</span>
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import FeaturedInfo from "../components/FeaturedInfo";
 import Chart from "../components/Chart";
-import { userData } from "../dummyData";
 import WidgetLg from "../components/WidgetLg";
 import WidgetSm from "../components/WidgetSm";
 import { userRequest } from "../requestMethods";

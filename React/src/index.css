@@ -17,7 +17,7 @@ body{
     background: url('./assets/images/footerGif.gif');
 }
 .headerImg{
-    background: url('https://jvclegal.org/wp-content/uploads/2021/07/designer_page_header.jpg');
+    background: #a15bb4;
     background-repeat: no-repeat;
     background-size: cover;
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import{ useDispatch, useSelector } from 'react-redux';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import { DeleteOutline } from '@mui/icons-material';
 import { deleteProduct, getProduct } from '../redux/apiCalls';

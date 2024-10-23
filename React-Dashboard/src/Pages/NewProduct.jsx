@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Chart from "../components/Chart";
-import { productData } from "../dummyData";
+import { useNavigate } from "react-router-dom";
 import { Publish } from "@mui/icons-material";
-import { addProduct, updateProduct } from "../redux/apiCalls";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { publicRequest, userRequest } from "../requestMethods";
-// import { ChakraProvider } from "@chakra-ui/react";
-import LoadingBar from "react-top-loading-bar";
+import { useDispatch } from "react-redux";
+import { userRequest } from "../requestMethods";
 import { Progress } from "semantic-ui-react";
 import {
   getStorage,
