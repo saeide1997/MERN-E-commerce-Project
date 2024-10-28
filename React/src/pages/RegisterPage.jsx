@@ -1,20 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { userRequest } from "../requestMethods";
-import Swal from 'sweetalert2'
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  addUserStart,
-  addUserSuccess,
-  addUserFailure,
-} from "../redux/userRedux";
 import { useAuth } from "../hooks/AuthProvider";
 
 const RegisterPage = () => {
   const [userInf, setUserInf] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const auth = useAuth();
 
   const handleChange = (e) => {
@@ -30,33 +19,6 @@ const RegisterPage = () => {
       role: "user",
     };
     auth.registerAction(user)
-
-    // try {
-    //   console.log(2);
-    //   dispatch(addUserStart());
-    //   console.log(1);
-    //   const res = await userRequest.post(`/auth/register/`, user);
-    //   console.log(res);
-    //   dispatch(addUserSuccess(res.data));
-    //   navigate("/");
-    //   Swal.fire({
-    //     position: "top-end",
-    //     icon: "success",
-    //     title: "با موفقیت وارد شدید",
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   });
-    // } catch (err) {
-    //   dispatch(addUserFailure());
-    //   Swal.fire({
-    //     position: "top-end",
-    //     icon: "error",
-    //     title: "خطایی رخ داده است.",
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   });
-    //   return err;
-    // }
   };
 
   return (

@@ -3,10 +3,11 @@ import { Search, ShoppingCartOutlined } from '@mui/icons-material';
 import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { useAuth } from "../hooks/AuthProvider"
 
 const Navbar = () => {
-
+    const user = useAuth().user;
+    const logout = useAuth();
     const quantity = useSelector(state=>state.cart.quantity)
 
     return (
@@ -23,8 +24,13 @@ const Navbar = () => {
                 </div>
                 <div className='flex-1 text-center text-[40px]'><Link className='text-white' to='/'>.SOHO</Link></div>
                 <div className='flex-1 flex justify-end'>
-                    <div className='mx-3 text-[20px] cursor-pointer'><Link className='text-white no-underline' to='/register'>ثبت نام</Link></div>
+                {(() => {
+                if(user){
+                    return <div className='flex' ><div className='mx-3 text-[20px] cursor-pointer' onClick={() => logout.logOut()} >خروج</div>
+                    <div className='mx-3 text-[20px] cursor-pointer'><Link className='text-white no-underline' to='/login'>{user.fullname}</Link></div>
+                    </div>}else{return <div className='flex' ><div className='mx-3 text-[20px] cursor-pointer'><Link className='text-white no-underline' to='/register'>ثبت نام</Link></div>
                     <div className='mx-3 text-[20px] cursor-pointer'><Link className='text-white no-underline' to='/login'>ورود</Link></div>
+                    </div>}})()}
                     <div className='mx-3 cursor-pointer'>
                         <Link to='/cart'>
                         <Badge badgeContent={quantity} color='primary'>

@@ -15,14 +15,11 @@ const AuthProvider = ({ children }) => {
   const registerAction = async (data) => {
 
     try {
-      console.log(2);
       console.log(data);
       dispatch(addUserStart());
-      console.log(1);
       const res = await userRequest.post(`/auth/register/`, data);
       dispatch(addUserSuccess(res.data));
-      console.log(res);
-      loginAction(res.data.userName, res.data.password)
+      loginAction({userName:data.userName, password:data.password})
     }catch(err){
       dispatch(addUserFailure());
       Swal.fire({
@@ -39,10 +36,7 @@ const AuthProvider = ({ children }) => {
     try {
       //saeidetajmehr
       dispatch(loginStart());
-      console.log(data);
       const res = await userRequest.post(`/auth/login/`, data);
-      // const res = await response.json();
-      console.log('res',res);
       if (res.data) {
         setUser(res.data.user);
         setToken(res.data.token);
