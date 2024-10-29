@@ -43,3 +43,6 @@ body{
 .flex-1{
     flex: 1;
 }
+.MuiPaper-root ul{
+    background-color: #a15bb4 !important;
+}

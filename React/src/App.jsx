@@ -13,6 +13,7 @@ import CartPage from "./pages/CartPage";
 import PrintPage from "./pages/PrintPage";
 import AuthProvider from "./hooks/AuthProvider";
 import PrivateRoute from "./router/route";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/print" element={<PrintPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
