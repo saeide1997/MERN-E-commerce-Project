@@ -11,7 +11,7 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 
 const Navbar = () => {
-  const user = useAuth().user;
+  const user = JSON.parse(localStorage.getItem('user'))
   const logout = useAuth();
   const quantity = useSelector((state) => state.cart.quantity);
 
