@@ -1,7 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { addUserFailure, addUserStart, addUserSuccess, loginFailure, loginStart, loginSuccess } from "../redux/userRedux";
+import { addUserFailure, addUserStart, addUserSuccess, loginFailure, loginStart, loginSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "../redux/userRedux";
 import { userRequest } from "../requestMethods";
 import Swal from "sweetalert2";
 
@@ -15,13 +15,9 @@ const AuthProvider = ({ children }) => {
   const registerAction = async (data) => {
 
     try {
-      console.log(2);
-      console.log(data);
       dispatch(addUserStart());
-      console.log(1);
       const res = await userRequest.post(`/auth/register/`, data);
       dispatch(addUserSuccess(res.data));
-      console.log(res);
       loginAction(res.data.userName, res.data.password)
     }catch(err){
       dispatch(addUserFailure());
@@ -42,14 +38,12 @@ const AuthProvider = ({ children }) => {
       console.log(data);
       const res = await userRequest.post(`/auth/login/`, data);
       // const res = await response.json();
-      console.log('res',res);
       if (res.data) {
         setUser(res.data.user);
         setToken(res.data.token);
         localStorage.setItem("site", res.data.token);
         localStorage.setItem('user',JSON.stringify(res.data.user))
         dispatch(loginSuccess(res.data));
-        console.log('userstate',JSON.stringify(res.data.user));
         navigate("/");
         Swal.fire({
           position: "top-end",
@@ -74,11 +68,43 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateUser = async(id, data)=> {
+  try{
+    updateUserStart()
+    const res = await userRequest.put(`/users/${id}`, data)
+    dispatch(updateUserSuccess(res.data))
+    localStorage.setItem('user',JSON.stringify(res.data))
+    navigate("/profile");
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "با موفقیت بروز شدید",
+      showConfirmButton: false,
+      timer: 3500
+    });
+    return;
+
+  }catch(err){
+    updateUserFailure()
+    Swal.fire({
+      position: "top-end",
+      icon: "error",
+      title: "خطایی رخ داده است.",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    return err;
+  }
+  
+
+  }
+
   const logOut = () => {
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
-    navigate("/login");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   return (

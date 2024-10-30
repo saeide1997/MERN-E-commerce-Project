@@ -12,8 +12,8 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem('user'))
-  const logout = useAuth();
   const quantity = useSelector((state) => state.cart.quantity);
+  const userFunction = useAuth()
 
   return (
     <div className=" headerImg h-[90px]">
@@ -57,7 +57,7 @@ const Navbar = () => {
                               پروفایل
                             </Link>
                             </MenuItem>
-                            <MenuItem className=" text-white" onClick={popupState.close}>
+                            <MenuItem className=" text-white" onClick={ ()=> {popupState.close(); userFunction.logOut()} }>
                               خروج
                             </MenuItem>
                           </Menu>

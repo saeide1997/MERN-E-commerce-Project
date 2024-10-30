@@ -16,7 +16,7 @@ import Navbar from "../component/Navbar";
 const ProfilePage = () => {
   const user = JSON.parse(localStorage.getItem('user'))
   const [userInf, setUserInf] = useState([]);
-  const dispatch = useDispatch();
+  const auth = useAuth();
 
   const handleChange = (e) => {
     setUserInf((prev) => {
@@ -26,7 +26,7 @@ const ProfilePage = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    updateUser(user._id, userInf, dispatch);
+    auth.updateUser(user._id, userInf);
   };
   return (
     <div>

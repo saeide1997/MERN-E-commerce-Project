@@ -22,7 +22,7 @@ const App = () => {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route element={<PrivateRoute />}>
+            {/* <Route element={<PrivateRoute />}> */}
               <Route path="/" element={<HomePage />} />
               <Route path="/products/:category" element={<ProductsPage />} />
               <Route path="/product/:id" element={<ProductPage />} />
@@ -33,7 +33,7 @@ const App = () => {
               <Route path="/print" element={<PrintPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="*" element={<NotFound />} />
-            </Route>
+            {/* </Route> */}
           </Routes>
         </AuthProvider>
       </BrowserRouter>

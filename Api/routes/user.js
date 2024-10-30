@@ -13,11 +13,12 @@ router.put("/:id",jsonParser, async(req, res)=>{
         }
 
     try{
-        console.log(11,req.body);
+        console.log(22,req.body);
         const updatedUser = await User.findByIdAndUpdate(req.params.id, 
             {$set: req.body,},
             {new: true}
         )
+        console.log(11,req.body);
         res.status(200).json(updatedUser)
     }catch(err) {
         res.status(500).json(err)
