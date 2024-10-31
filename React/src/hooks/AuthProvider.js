@@ -74,6 +74,7 @@ const AuthProvider = ({ children }) => {
     const res = await userRequest.put(`/users/${id}`, data)
     dispatch(updateUserSuccess(res.data))
     localStorage.setItem('user',JSON.stringify(res.data))
+    console.log(res.data);
     navigate("/profile");
     Swal.fire({
       position: "top-end",
@@ -108,7 +109,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, registerAction, loginAction, logOut }}>
+    <AuthContext.Provider value={{ token, user, registerAction, loginAction, logOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

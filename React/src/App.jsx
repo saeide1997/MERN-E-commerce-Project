@@ -14,6 +14,7 @@ import PrintPage from "./pages/PrintPage";
 import AuthProvider from "./hooks/AuthProvider";
 import PrivateRoute from "./router/route";
 import ProfilePage from "./pages/ProfilePage";
+import FavoritePage from "./pages/FavoritesPage";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/print" element={<PrintPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/favorite" element={<FavoritePage />} />
               <Route path="*" element={<NotFound />} />
             {/* </Route> */}
           </Routes>

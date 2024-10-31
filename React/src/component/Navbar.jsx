@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, ShoppingCartOutlined } from "@mui/icons-material";
+import { FavoriteBorderOutlined, Search, ShoppingCartOutlined } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem('user'))
   const quantity = useSelector((state) => state.cart.quantity);
+  const favQuantity = useSelector((state) => state.favorite.quantity);
   const userFunction = useAuth()
 
   return (
@@ -84,6 +85,13 @@ const Navbar = () => {
               );
             }
           })()}
+          <div className="mx-3 cursor-pointer">
+            <Link to="/favorite">
+              <Badge badgeContent={favQuantity} color= 'secondary' className="text-red-600 !text-[30px]">
+                <FavoriteBorderOutlined />
+              </Badge>
+            </Link>
+          </div>
           <div className="mx-3 cursor-pointer">
             <Link to="/cart">
               <Badge badgeContent={quantity} color="primary">

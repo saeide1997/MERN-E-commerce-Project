@@ -14,6 +14,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import favoriteRedux from "./favoriteRedux";
 
 const persistConfig = {
   key: "root",
@@ -21,7 +22,13 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ user: userReducer, product: productReducer, order:orderReducer, cart: cartReducer });
+const rootReducer = combineReducers({
+  user: userReducer,
+  product: productReducer,
+  order: orderReducer,
+  cart: cartReducer,
+  favorite: favoriteRedux
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
