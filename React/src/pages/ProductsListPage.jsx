@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const ProductsList = () => {
     const location = useLocation()
-    const category = decodeURIComponent(location.pathname.split("/")[2])
+    const category = location.pathname.split("/")[2]?decodeURIComponent(location.pathname.split("/")[2]) : ''
     const [filter, setFilter] = useState({})
     const [sort, setSort] = useState("newest")
 
@@ -53,7 +53,7 @@ const ProductsList = () => {
                     </select>
                 </div>
             </div>
-                <Products category={category} filters={filter} sort={sort} quantity={8}/>
+                <Products category={category} filters={filter} sort={sort} quantity={10000}/>
                 <News/>
                 <Footer/>
         </div>

@@ -15,7 +15,7 @@ const Slider = () => {
 
 
     return (
-        <div className="m-4 shadoww ">
+        <div className="m-4 shadoww  ">
             <Carousel data-bs-theme="dark" className="h-[calc(100vh-90px)] w-[100%] bg-white">
                 <Carousel.Item className="">
                     <div className=" flex">

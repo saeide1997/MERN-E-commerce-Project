@@ -1,5 +1,5 @@
 import React from "react";
-import { FavoriteBorderOutlined, Search, ShoppingCartOutlined } from "@mui/icons-material";
+import { Favorite, FavoriteBorderOutlined, Search, ShoppingCartOutlined } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,12 +17,12 @@ const Navbar = () => {
   const userFunction = useAuth()
 
   return (
-    <div className=" headerImg h-[90px]">
+    <div className=" headerImg h-[90px] sticky ">
       <div className="p-7  h-[90px] flex justify-between items-center">
         <div className="flex-1 flex">
-          <div className="cursor-pointer text-white justify-center items-center ml-10 text-[20px]">
+          {/* <div className="cursor-pointer text-white justify-center items-center ml-10 text-[20px]">
             فارسی
-          </div>
+          </div> */}
           <div className="border-none justify-center items-center ml-3  p-0">
             <Search className="text-white !text-3xl" />
             <input
@@ -42,19 +42,19 @@ const Navbar = () => {
               return (
                 <div className="flex">
                  
-                  <div className="mx-3 text-white text-[20px] cursor-pointer">
+                  <div className="mx-3 text-white !w-[100px] text-[20px] cursor-pointer">
                     <PopupState variant="popover" popupId="demo-popup-menu">
                       {(popupState) => (
                         <React.Fragment>
-                          <Button className="!bg-fuchsia-100/10"
+                          <Button className="!bg-fuchsia-100/10 !w-[100px]"
                             variant="contained"
                             {...bindTrigger(popupState)}
                           >
                             {user.fullname}
                           </Button>
-                          <Menu {...bindMenu(popupState)}>
+                          <Menu  {...bindMenu(popupState)}>
                             <MenuItem onClick={popupState.close}>
-                            <Link className="text-white no-underline"  to='/profile'>
+                            <Link className="text-white no-underline !w-[100px]"  to='/profile'>
                               پروفایل
                             </Link>
                             </MenuItem>
@@ -87,15 +87,15 @@ const Navbar = () => {
           })()}
           <div className="mx-3 cursor-pointer">
             <Link to="/favorite">
-              <Badge badgeContent={favQuantity} color= 'secondary' className="text-red-600 !text-[30px]">
-                <FavoriteBorderOutlined />
+              <Badge badgeContent={favQuantity} color= 'secondary' >
+                <Favorite className="text-red-600 !text-[40px]" />
               </Badge>
             </Link>
           </div>
           <div className="mx-3 cursor-pointer">
             <Link to="/cart">
-              <Badge badgeContent={quantity} color="primary">
-                <ShoppingCartOutlined />
+              <Badge badgeContent={quantity} color="secondary">
+                <ShoppingCartOutlined className="text-black !text-[35px]" />
               </Badge>
             </Link>
           </div>
