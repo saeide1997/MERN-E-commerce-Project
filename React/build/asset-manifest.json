@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dce96f39.css",
+    "main.js": "/static/js/main.392deee9.js",
+    "static/media/Shabnam-Light.eot": "/static/media/Shabnam-Light.abc58450df49ccad64d7.eot",
+    "static/media/Shabnam-Light.ttf": "/static/media/Shabnam-Light.d226314c146f8d2371cd.ttf",
+    "static/media/Shabnam-Bold.eot": "/static/media/Shabnam-Bold.0641eb109eb3e9ddc437.eot",
+    "static/media/Shabnam-Bold.ttf": "/static/media/Shabnam-Bold.fefaa4a9c548cf533a8d.ttf",
+    "static/media/Shabnam-Medium.eot": "/static/media/Shabnam-Medium.da2e2ab8e874272f908d.eot",
+    "static/media/Shabnam-Medium.ttf": "/static/media/Shabnam-Medium.3313d456fa9a8f23fcc4.ttf",
+    "static/media/Shabnam-Light.woff": "/static/media/Shabnam-Light.a2b049a22dc99a5b6c09.woff",
+    "static/media/Shabnam-Bold.woff": "/static/media/Shabnam-Bold.d7a9ff9cd033b0d4b3ef.woff",
+    "static/media/Shabnam-Medium.woff": "/static/media/Shabnam-Medium.5307973e39ff72517e53.woff",
+    "index.html": "/index.html",
+    "main.dce96f39.css.map": "/static/css/main.dce96f39.css.map",
+    "main.392deee9.js.map": "/static/js/main.392deee9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dce96f39.css",
+    "static/js/main.392deee9.js"
+  ]
+}
